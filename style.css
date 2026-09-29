@@ -1,0 +1,279 @@
+:root,
+:root[data-theme="light"] {
+  --bg: #eef3f9;
+  --surface: #ffffff;
+  --text: #1c2533;
+  --muted: #5b6778;
+  --border: #d9e1ec;
+  --accent: #2f6fde;
+  --accent-text: #ffffff;
+  --danger: #d23b3b;
+  --shadow: 0 6px 20px rgba(28, 37, 51, 0.08);
+}
+
+:root[data-theme="dark"] {
+  --bg: #11161f;
+  --surface: #1b2230;
+  --text: #e6ebf2;
+  --muted: #9aa6b8;
+  --border: #2c3647;
+  --accent: #5b92f5;
+  --accent-text: #0d1320;
+  --danger: #f06a6a;
+  --shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.2s, color 0.2s;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Kopfzeile */
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Buttons */
+.btn {
+  font: inherit;
+  font-size: 0.95rem;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+.btn-primary:hover {
+  filter: brightness(1.08);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.btn-ghost:hover {
+  background: var(--bg);
+}
+
+.btn:focus-visible,
+.btn-remove:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Formular zum Hinzufügen */
+.add-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 16px 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.add-form[hidden] {
+  display: none;
+}
+
+.add-form input {
+  flex: 1 1 220px;
+  font: inherit;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+}
+
+.add-message {
+  flex-basis: 100%;
+  margin: 0;
+  min-height: 1.2em;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.add-message.error {
+  color: var(--danger);
+}
+
+/* Wetter-Boxen */
+main {
+  flex: 1;
+  padding: 24px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.card-name {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.card-region {
+  margin: 2px 0 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.btn-remove {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.btn-remove:hover {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.card-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.card-icon {
+  font-size: 2.4rem;
+}
+
+.card-temp {
+  font-size: 2.6rem;
+  font-weight: 600;
+}
+
+.card-desc {
+  margin: 4px 0 12px;
+  color: var(--muted);
+}
+
+.card-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.card-stats dt {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.card-stats dd {
+  margin: 2px 0 0;
+  font-weight: 600;
+}
+
+.card.loading .card-body {
+  opacity: 0.5;
+}
+
+.card.error .card-desc {
+  color: var(--danger);
+}
+
+.empty {
+  text-align: center;
+  color: var(--muted);
+}
+
+.footer {
+  padding: 16px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.footer a {
+  color: var(--accent);
+}
+
+@media (max-width: 480px) {
+  .topbar,
+  .add-form,
+  main {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .theme-label {
+    display: none;
+  }
+}

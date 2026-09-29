@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wetter</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    // Theme vor dem ersten Rendern setzen, damit die Seite nicht kurz hell aufblitzt
+    try {
+      const saved = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.dataset.theme = saved || (prefersDark ? "dark" : "light");
+    } catch (e) {
+      document.documentElement.dataset.theme = "light";
+    }
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <h1 class="brand">☀️ Wetter</h1>
+    <div class="actions">
+      <button id="add-toggle" class="btn btn-primary" type="button" aria-expanded="false" aria-controls="add-form">
+        + Ort hinzufügen
+      </button>
+      <button id="theme-toggle" class="btn btn-ghost" type="button" aria-label="Farbmodus wechseln">
+        <span class="theme-icon" aria-hidden="true">🌙</span>
+        <span class="theme-label">Dark Mode</span>
+      </button>
+    </div>
+  </header>
+
+  <form id="add-form" class="add-form" hidden>
+    <label for="city-input" class="sr-only">Ortsname</label>
+    <input id="city-input" type="text" placeholder="Ort eingeben, z. B. Berlin" autocomplete="off" required>
+    <button type="submit" class="btn btn-primary">Hinzufügen</button>
+    <button type="button" id="add-cancel" class="btn btn-ghost">Abbrechen</button>
+    <p id="add-message" class="add-message" role="status" aria-live="polite"></p>
+  </form>
+
+  <main>
+    <section id="cards" class="cards" aria-live="polite"></section>
+    <p id="empty" class="empty" hidden>Keine Orte vorhanden. Füge oben einen Ort hinzu.</p>
+  </main>
+
+  <footer class="footer">
+    Wetterdaten: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo.com</a>
+  </footer>
+
+  <template id="card-template">
+    <article class="card">
+      <header class="card-head">
+        <div>
+          <h2 class="card-name"></h2>
+          <p class="card-region"></p>
+        </div>
+        <button class="btn-remove" type="button" title="Ort entfernen">✕</button>
+      </header>
+      <div class="card-body">
+        <div class="card-main">
+          <span class="card-icon" aria-hidden="true"></span>
+          <span class="card-temp">–</span>
+        </div>
+        <p class="card-desc"></p>
+        <dl class="card-stats">
+          <div>
+            <dt>💧 Niederschlag</dt>
+            <dd class="card-rain">–</dd>
+          </div>
+          <div>
+            <dt class="card-sun-label">🌅 Sonne</dt>
+            <dd class="card-sun">–</dd>
+          </div>
+        </dl>
+      </div>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
